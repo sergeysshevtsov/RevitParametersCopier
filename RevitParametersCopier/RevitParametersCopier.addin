@@ -1,0 +1,15 @@
+﻿<RevitAddIns>
+    <AddIn Type="Application">
+        <Name>RevitParametersCopier</Name>
+        <Assembly>RevitParametersCopier\RevitParametersCopier.dll</Assembly>
+        <AddInId>F930B50D-7CF3-4495-A8CF-FDBB52B04DA7</AddInId>
+        <FullClassName>RevitParametersCopier.Application</FullClassName>
+        <VendorId>Development</VendorId>
+        <VendorDescription></VendorDescription>
+        <VendorEmail></VendorEmail>
+    </AddIn>
+    <ManifestSettings>
+        <UseRevitContext>False</UseRevitContext>
+        <ContextName>RevitParametersCopier</ContextName>
+    </ManifestSettings>
+</RevitAddIns>
