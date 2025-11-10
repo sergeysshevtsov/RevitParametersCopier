@@ -2,9 +2,6 @@
 using RevitParametersCopier.Commands;
 
 namespace RevitParametersCopier;
-/// <summary>
-///     Application entry point
-/// </summary>
 [UsedImplicitly]
 public class Application : ExternalApplication
 {

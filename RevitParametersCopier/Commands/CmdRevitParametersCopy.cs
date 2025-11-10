@@ -13,24 +13,24 @@ public class CmdRevitParametersCopy : IExternalCommand
 
     public Result Execute(ExternalCommandData data, ref string message, ElementSet elements)
     {
-        UIDocument uidoc = data.Application.ActiveUIDocument;
-        Document doc = uidoc.Document;
+        UIDocument UIDoc = data.Application.ActiveUIDocument;
+        Document document = UIDoc.Document;
 
-        ICollection<ElementId> selectedIds = uidoc.Selection.GetElementIds();
+        ICollection<ElementId> selectedIds = UIDoc.Selection.GetElementIds();
         if (selectedIds.Count != 1)
         {
             TaskDialog.Show("Copy parameters", "Please select exactly one element.");
             return Result.Cancelled;
         }
 
-        Element element = doc.GetElement(selectedIds.First());
+        Element element = document.GetElement(selectedIds.First());
         if (element == null)
         {
             TaskDialog.Show("Copy parameters", "No element found.");
             return Result.Failed;
         }
 
-        var snap = new ParamSnapshot
+        ParamSnapshot snap = new()
         {
             SourceElementDesc = $"{element.Category?.Name} : {element.Name} (Id {element.Id.Value})"
         };
@@ -39,7 +39,7 @@ public class CmdRevitParametersCopy : IExternalCommand
         {
             if (p == null || p.Definition == null) continue;
 
-            var item = new ParamItem
+            ParamItem item = new()
             {
                 Name = p.Definition.Name,
                 StorageType = p.StorageType,
@@ -96,22 +96,6 @@ public class CmdRevitParametersCopy : IExternalCommand
                     return p.AsInteger().ToString();
                 case StorageType.Double:
                     return p.AsDouble().ToString(System.Globalization.CultureInfo.InvariantCulture);
-                //case StorageType.ElementId:
-                //    // Safety checks: allow clearing with -1; otherwise ensure element exists in this document
-                //    if (int.TryParse(item.RawString ?? item.DisplayValue, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out int idVal))
-                //    {
-                //        if (idVal == ElementId.InvalidElementId.IntegerValue)
-                //        {
-                //            return p.Set(ElementId.InvalidElementId);
-                //        }
-                //        var eid = new ElementId(idVal);
-                //        var ownerDoc = p.Element?.Document;
-                //        if (ownerDoc != null && ownerDoc.GetElement(eid) != null)
-                //        {
-                //            return p.Set(eid);
-                //        }
-                //    }
-                //    break;
                 case StorageType.ElementId:
                     return p.AsElementId()?.Value.ToString();
                 case StorageType.None:
