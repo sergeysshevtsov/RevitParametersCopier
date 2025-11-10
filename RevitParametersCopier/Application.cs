@@ -24,5 +24,9 @@ public class Application : ExternalApplication
         panel.AddPushButton<CmdRevitParametersPaste>("Parameters\npaste")
             .SetImage("/RevitParametersCopier;component/Resources/Icons/paste16.png")
             .SetLargeImage("/RevitParametersCopier;component/Resources/Icons/paste32.png");
+
+        //panel.AddPushButton<CmdRevitParametersPaste>("Parameters\npaste")
+        //    .SetImage("/RevitParametersCopier;component/Resources/Icons/paste16.png")
+        //    .SetLargeImage("/RevitParametersCopier;component/Resources/Icons/paste32.png");
     }
 }
